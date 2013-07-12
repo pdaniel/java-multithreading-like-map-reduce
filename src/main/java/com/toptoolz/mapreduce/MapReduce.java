@@ -11,6 +11,7 @@ import java.util.List;
  * @author: danielpo
  * Date: 7/9/13
  * Time: 5:09 PM
+ * This is the builder class for map reduce process.
  */
 public class MapReduce {
     Object input;
@@ -68,6 +69,9 @@ public class MapReduce {
 
     public Master master = null;
 
+    /**
+     * this method delegates the work to MasetrWork class that manages the entire map-reduce process.
+     */
     public void begin() {
         master = new MasterWorkers(reducer, mapper, (List) input, workersNo);
         master.begin();

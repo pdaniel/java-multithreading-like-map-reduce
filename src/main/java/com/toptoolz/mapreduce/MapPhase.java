@@ -1,12 +1,12 @@
 package com.toptoolz.mapreduce;
 
 import com.toptoolz.mapreduce.map.Mapper;
-import com.toptoolz.mapreduce.task.Task;
 
 /**
  * @author: danielpo
  * Date: 7/11/13
  * Time: 11:27 AM
+ * This is a utility method that starts the map process from mapper
  */
 public class MapPhase {
     Mapper mapper;
@@ -17,7 +17,7 @@ public class MapPhase {
         this.input = input;
     }
 
-    public  Object map(){
-       return mapper.map(input) ;
+    public Object map() {
+        return mapper.map(input);
     }
 }

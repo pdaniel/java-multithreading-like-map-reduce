@@ -3,7 +3,6 @@ package com.toptoolz.mapreduce.master;
 import com.toptoolz.mapreduce.map.Mapper;
 import com.toptoolz.mapreduce.master.exception.MasterException;
 import com.toptoolz.mapreduce.reduce.Reducer;
-import com.toptoolz.mapreduce.task.Task;
 import com.toptoolz.mapreduce.worker.AbstractWorker;
 import com.toptoolz.mapreduce.worker.Worker;
 import com.toptoolz.mapreduce.worker.WorkerFactory;
@@ -15,15 +14,11 @@ import java.util.Vector;
  * @author: danielpo
  * Date: 7/10/13
  * Time: 11:23 AM
- * ideea este ca pentru faill over as putea crea ca fiecare worker sa poata juca rol de master la un moment dat si ar putea el
- * sa aloce taskuri catre ceilalri eorkeri. Ar trebui cumva sa am o lista de workeri inregistrati si la un moment dat unul sa fie
- * marcat ca si master
+ * This class manages the map-reduce process. Creates workers, allocate workers to jobs.
  */
-public abstract class AbstractMaster implements Master{
+public abstract class AbstractMaster implements Master {
 
     Vector<AbstractWorker> workers = new Vector<>();
-    Task task;
-   // String data;
     List input;
     Mapper mapper;
     Reducer reducer;
@@ -41,65 +36,57 @@ public abstract class AbstractMaster implements Master{
         this.input = input;
         this.workersNo = workersNo;
     }
-    /*   protected AbstractMaster(Task task, String data) {
-        this.task = task;
-        this.data = data;
-    }*/
 
-    protected AbstractMaster(Task task, List input) {
-        this.task = task;
-        this.input = input;
-    }
-
-    protected AbstractMaster(final Task task) {
-        this.task = task;
-    }
-
-
-    public void registerWorker(AbstractWorker abstractWorker){
+    /**
+     * This method register a new worker in the worker list
+     * @param abstractWorker - the worker
+     */
+    public void registerWorker(AbstractWorker abstractWorker) {
         workers.add(abstractWorker);
     }
 
-    public void deleteWorker(AbstractWorker abstractWorker){
+    public void deleteWorker(AbstractWorker abstractWorker) {
         workers.remove(abstractWorker);
     }
 
-    protected void createWorkers(int taskNumOfWorkers){
+    /**
+     * This method creates a pool of workers from witch a worker will be retrieved
+     * @param taskNumOfWorkers - how many workers will be created
+     */
+    protected void createWorkers(int taskNumOfWorkers) {
         int workersSize = workers.size();
-        if(workersSize<taskNumOfWorkers){
-            int dif = taskNumOfWorkers-workersSize;
-            for(int i=0;i<dif;i++){
+        if (workersSize < taskNumOfWorkers) {
+            int dif = taskNumOfWorkers - workersSize;
+            for (int i = 0; i < dif; i++) {
                 registerWorker(WorkerFactory.getWorker(mapper));
             }
         }
     }
 
 
-    public void forTestCreateWorkers(){
-        createWorkers(task.noOfWorkers());
-    }
-
-    public Worker forTestAvailableWorker(){
-        return getAvailableworker();
-    }
-
-    protected Worker getAvailableworker(){
+    protected Worker getAvailableworker() {
         return getAvailableworker(0);
     }
-    protected AbstractWorker getAvailableworker(int idx){
+
+    /**
+     * Returns an instante of available worker based in idx
+     * @param idx - the worker id
+     * @return - an available worker from workers list
+     */
+    protected AbstractWorker getAvailableworker(int idx) {
         AbstractWorker worker;
         int workersSize = workers.size();
-        if(workersSize>0 && idx < workersSize){
-           worker = workers.get(idx);
-           if(!worker.isRunning() && !worker.isTaken()){
-               worker.setTaken(true);
-               return worker;
-           }else{
-               return getAvailableworker(idx+1);
-           }
+        if (workersSize > 0 && idx < workersSize) {
+            worker = workers.get(idx);
+            if (!worker.isRunning() && !worker.isTaken()) {
+                worker.setTaken(true);
+                return worker;
+            } else {
+                return getAvailableworker(idx + 1);
+            }
         }
         try {
-            Thread.sleep(100000);
+            Thread.sleep(100000);  //TODO : find a better way
         } catch (InterruptedException e) {
             throw new MasterException(e);
         }

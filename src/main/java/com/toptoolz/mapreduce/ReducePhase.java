@@ -9,6 +9,7 @@ import java.util.List;
  * @author: danielpo
  * Date: 7/12/13
  * Time: 10:17 AM
+ * This method executes the reduce phase
  */
 public class ReducePhase {
     List mapResult;
