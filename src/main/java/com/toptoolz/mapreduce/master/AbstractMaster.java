@@ -4,6 +4,7 @@ import com.toptoolz.mapreduce.map.Mapper;
 import com.toptoolz.mapreduce.master.exception.MasterException;
 import com.toptoolz.mapreduce.reduce.Reducer;
 import com.toptoolz.mapreduce.worker.AbstractMapWorker;
+import com.toptoolz.mapreduce.worker.AbstractReduceWorker;
 import com.toptoolz.mapreduce.worker.MapWorker;
 import com.toptoolz.mapreduce.worker.WorkerFactory;
 
@@ -19,6 +20,7 @@ import java.util.Vector;
 public abstract class AbstractMaster implements Master {
 
     Vector<AbstractMapWorker> workers = new Vector<>();
+    Vector<AbstractReduceWorker> reduceWorkers = new Vector<>();
     List input;
     Mapper mapper;
     Reducer reducer;
