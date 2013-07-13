@@ -1,16 +1,12 @@
 package com.toptoolz.mapreduce.worker;
 
+import com.toptoolz.mapreduce.reduce.Reducer;
+
 /**
- * @author: danielpo
- * Date: 7/10/13
- * Time: 11:32 AM
+ * User: Daniel P.
+ * Date: 7/13/13
+ * Time: 8:14 PM
  */
-public class ReduceWorker {
-    /**
-     * @author: danielpo
-     * Date: 7/9/13
-     * Time: 12:01 PM
-     */
-    public static class MapWorker extends Thread {
-    }
+public interface ReduceWorker {
+    public void setReducer(Reducer reducer);
 }

@@ -2,7 +2,6 @@ package com.toptoolz.mapreduce;
 
 import com.toptoolz.mapreduce.reduce.Reducer;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -20,7 +19,7 @@ public class ReducePhase {
         this.reducer = reducer;
     }
 
-    public Object reduce(){
+    public Object reduce() {
         return reducer.reduce(mapResult);
     }
 }

@@ -4,8 +4,8 @@ import com.toptoolz.mapreduce.ReducePhase;
 import com.toptoolz.mapreduce.map.Mapper;
 import com.toptoolz.mapreduce.master.exception.MasterException;
 import com.toptoolz.mapreduce.reduce.Reducer;
-import com.toptoolz.mapreduce.worker.AbstractWorker;
-import com.toptoolz.mapreduce.worker.Worker;
+import com.toptoolz.mapreduce.worker.AbstractMapWorker;
+import com.toptoolz.mapreduce.worker.MapWorker;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -35,13 +35,13 @@ public class MasterWorkers extends AbstractMaster {
     public void begin() {
         createWorkers(workersNo);
         for (Object s : input) {
-            Worker worker = getAvailableworker();
+            MapWorker worker = getAvailableMapWorker();
             worker.setInput((String) s);
             worker.setMapper(mapper);
             worker.setResults(values);
             worker.begin();
         }
-        for (AbstractWorker worker : workers) {
+        for (AbstractMapWorker worker : workers) {
             try {
                 worker.join();
             } catch (InterruptedException e) {

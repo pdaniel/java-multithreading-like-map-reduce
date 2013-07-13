@@ -1,7 +1,6 @@
 package com.toptoolz.mapreduce.worker;
 
 import com.toptoolz.mapreduce.map.Mapper;
-import com.toptoolz.mapreduce.task.Task;
 
 /**
  * @author: danielpo
@@ -9,7 +8,7 @@ import com.toptoolz.mapreduce.task.Task;
  * Time: 12:23 PM
  */
 public class WorkerFactory {
-    public static AbstractWorker getWorker(Mapper mapper){
-        return new ThreadWorker(mapper);
+    public static AbstractMapWorker getWorker(Mapper mapper) {
+        return new MapThreadWorker(mapper);
     }
 }

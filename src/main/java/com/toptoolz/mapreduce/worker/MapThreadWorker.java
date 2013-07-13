@@ -8,23 +8,16 @@ import com.toptoolz.mapreduce.map.Mapper;
  * Date: 7/10/13
  * Time: 11:33 AM
  */
-public class ThreadWorker extends AbstractWorker {
+public class MapThreadWorker extends AbstractMapWorker {
 
-    public ThreadWorker(Mapper mapper, long workerId) {
+    public MapThreadWorker(Mapper mapper, long workerId) {
         super(mapper, workerId);
     }
 
-    public ThreadWorker(Mapper mapper) {
+    public MapThreadWorker(Mapper mapper) {
         super(mapper);
     }
 
-  /*  protected ThreadWorker() {
-        super();
-    }
-
-    public ThreadWorker(long workerId) {
-        super(workerId);
-    }*/
 
     @Override
     public void run() {

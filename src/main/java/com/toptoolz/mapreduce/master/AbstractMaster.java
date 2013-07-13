@@ -3,8 +3,8 @@ package com.toptoolz.mapreduce.master;
 import com.toptoolz.mapreduce.map.Mapper;
 import com.toptoolz.mapreduce.master.exception.MasterException;
 import com.toptoolz.mapreduce.reduce.Reducer;
-import com.toptoolz.mapreduce.worker.AbstractWorker;
-import com.toptoolz.mapreduce.worker.Worker;
+import com.toptoolz.mapreduce.worker.AbstractMapWorker;
+import com.toptoolz.mapreduce.worker.MapWorker;
 import com.toptoolz.mapreduce.worker.WorkerFactory;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.Vector;
  */
 public abstract class AbstractMaster implements Master {
 
-    Vector<AbstractWorker> workers = new Vector<>();
+    Vector<AbstractMapWorker> workers = new Vector<>();
     List input;
     Mapper mapper;
     Reducer reducer;
@@ -39,18 +39,20 @@ public abstract class AbstractMaster implements Master {
 
     /**
      * This method register a new worker in the worker list
-     * @param abstractWorker - the worker
+     *
+     * @param abstractMapWorker - the worker
      */
-    public void registerWorker(AbstractWorker abstractWorker) {
-        workers.add(abstractWorker);
+    public void registerWorker(AbstractMapWorker abstractMapWorker) {
+        workers.add(abstractMapWorker);
     }
 
-    public void deleteWorker(AbstractWorker abstractWorker) {
-        workers.remove(abstractWorker);
+    public void deleteWorker(AbstractMapWorker abstractMapWorker) {
+        workers.remove(abstractMapWorker);
     }
 
     /**
      * This method creates a pool of workers from witch a worker will be retrieved
+     *
      * @param taskNumOfWorkers - how many workers will be created
      */
     protected void createWorkers(int taskNumOfWorkers) {
@@ -64,17 +66,18 @@ public abstract class AbstractMaster implements Master {
     }
 
 
-    protected Worker getAvailableworker() {
-        return getAvailableworker(0);
+    protected MapWorker getAvailableMapWorker() {
+        return getAvailableMapWorker(0);
     }
 
     /**
      * Returns an instante of available worker based in idx
+     *
      * @param idx - the worker id
      * @return - an available worker from workers list
      */
-    protected AbstractWorker getAvailableworker(int idx) {
-        AbstractWorker worker;
+    protected AbstractMapWorker getAvailableMapWorker(int idx) {
+        AbstractMapWorker worker;
         int workersSize = workers.size();
         if (workersSize > 0 && idx < workersSize) {
             worker = workers.get(idx);
@@ -82,7 +85,7 @@ public abstract class AbstractMaster implements Master {
                 worker.setTaken(true);
                 return worker;
             } else {
-                return getAvailableworker(idx + 1);
+                return getAvailableMapWorker(idx + 1);
             }
         }
         try {
@@ -90,10 +93,10 @@ public abstract class AbstractMaster implements Master {
         } catch (InterruptedException e) {
             throw new MasterException(e);
         }
-        return getAvailableworker(0);
+        return getAvailableMapWorker(0);
     }
 
-    public Vector<AbstractWorker> getWorkers() {
+    public Vector<AbstractMapWorker> getWorkers() {
         return workers;
     }
 }

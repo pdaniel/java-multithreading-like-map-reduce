@@ -1,6 +1,6 @@
 package com.toptoolz;
 
-import com.toptoolz.mapreduce.worker.AbstractWorker;
+import com.toptoolz.mapreduce.worker.AbstractMapWorker;
 import com.toptoolz.mapreduce.worker.Worker;
 
 import java.util.Vector;
@@ -11,7 +11,7 @@ import java.util.Vector;
  * Time: 3:39 PM
  */
 public class WorkerTests extends AbstractBaseTest {
-    Vector<AbstractWorker> myWorkers;
+    Vector<AbstractMapWorker> myWorkers;
 
     public void testCreateWorker() {
         myWorkers = createWorkers();
@@ -24,7 +24,7 @@ public class WorkerTests extends AbstractBaseTest {
             Worker w = myWorkers.get(i);
             w.setRunning(true);
         }
-        Worker w = mw.forTestAvailableWorker();
+      //  Worker w = mw.forTestAvailableWorker();
 
     }
 
@@ -34,7 +34,7 @@ public class WorkerTests extends AbstractBaseTest {
             Worker w = myWorkers.get(i);
             w.setRunning(true);
         }
-        Worker w = mw.forTestAvailableWorker();
+      //  Worker w = mw.forTestAvailableWorker();
 
     }
 }
