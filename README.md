@@ -6,8 +6,8 @@ The idea is to create a map reduce like API but using threads.
 Disclaimer : this project is not finished yet, it is only a first version.
 Future Work :
  - eliminate working directly with Object, create implementations
- - create the ability tu use fork/join implementation
- - create the ability tu use ExecutorService
+ - create the ability to use fork/join implementation
+ - create the ability to use ExecutorService
  - create the ability to use multi threading reducers
  - better understand the map reduce phase and the user of master
  - adding emit() functions
