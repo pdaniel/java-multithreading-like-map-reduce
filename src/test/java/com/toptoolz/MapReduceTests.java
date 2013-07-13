@@ -35,7 +35,7 @@ public class MapReduceTests extends AbstractBaseTest {
                 return results;
 
             }
-        }).reducer(new MultithreadReducer() {
+        }).reducer(new Reducer() {
             @Override
             public Object reduce(Collection c) {
                 HashMap h = new HashMap();
