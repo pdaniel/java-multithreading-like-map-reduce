@@ -12,4 +12,4 @@ Future Work :
  - better understand the map reduce phase and the user of master
  - adding emit() functions
  - adding shuffle functions
- - use a better approach to asbtract workers, maybe bridge
+ - use a better approach to abstract workers, maybe bridge
