@@ -2,6 +2,7 @@ package com.toptoolz;
 
 import com.toptoolz.mapreduce.MapReduce;
 import com.toptoolz.mapreduce.map.Mapper;
+import com.toptoolz.mapreduce.reduce.MultithreadReducer;
 import com.toptoolz.mapreduce.reduce.Reducer;
 
 import java.util.*;
@@ -34,7 +35,7 @@ public class MapReduceTests extends AbstractBaseTest {
                 return results;
 
             }
-        }).reducer(new Reducer() {
+        }).reducer(new MultithreadReducer() {
             @Override
             public Object reduce(Collection c) {
                 HashMap h = new HashMap();
