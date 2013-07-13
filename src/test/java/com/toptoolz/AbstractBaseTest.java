@@ -23,4 +23,8 @@ public class AbstractBaseTest extends TestCase {
     static final String doc1 = "This is document 1";
     static final String doc2 = "This is another document";
     static final String doc3 = "Document 3";
+
+    public void testEmpty(){
+
+    }
 }
