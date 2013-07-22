@@ -3,10 +3,7 @@ package com.toptoolz.mapreduce.master;
 import com.toptoolz.mapreduce.map.Mapper;
 import com.toptoolz.mapreduce.master.exception.MasterException;
 import com.toptoolz.mapreduce.reduce.Reducer;
-import com.toptoolz.mapreduce.worker.AbstractMapWorker;
-import com.toptoolz.mapreduce.worker.AbstractReduceWorker;
-import com.toptoolz.mapreduce.worker.MapWorker;
-import com.toptoolz.mapreduce.worker.WorkerFactory;
+import com.toptoolz.mapreduce.worker.*;
 
 import java.util.List;
 import java.util.Vector;
@@ -79,7 +76,7 @@ public abstract class AbstractMaster implements Master {
      * @return - an available worker from workers list
      */
     protected AbstractMapWorker getAvailableMapWorker(int idx) {
-        AbstractMapWorker worker;
+       /* AbstractMapWorker worker;
         int workersSize = workers.size();
         if (workersSize > 0 && idx < workersSize) {
             worker = workers.get(idx);
@@ -95,7 +92,10 @@ public abstract class AbstractMaster implements Master {
         } catch (InterruptedException e) {
             throw new MasterException(e);
         }
-        return getAvailableMapWorker(0);
+        return getAvailableMapWorker(0);*/
+        MapThreadWorker worker = new MapThreadWorker(mapper);
+        workers.add(worker);
+        return worker;
     }
 
     public Vector<AbstractMapWorker> getWorkers() {

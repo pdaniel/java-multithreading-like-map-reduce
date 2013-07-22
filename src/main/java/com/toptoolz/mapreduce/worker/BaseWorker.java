@@ -18,7 +18,6 @@ abstract class BaseWorker extends Thread implements Worker{
     Object input;
     List results;
 
-
     public void markStart(){
         setRunning(true);
     }
