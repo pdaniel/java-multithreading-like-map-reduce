@@ -45,6 +45,7 @@ public class MasterWorkers extends AbstractMaster {
             worker.setResults(values);
             worker.setWorkerIds(workersIds);
             worker.begin();
+            System.out.println("size : "+workersIds.size());
             i++;
             if(i==workersNo){
                 System.out.println("sleeping");
