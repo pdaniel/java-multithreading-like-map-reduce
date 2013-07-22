@@ -10,9 +10,9 @@ import com.toptoolz.mapreduce.map.Mapper;
  */
 public class MapPhase {
     Mapper mapper;
-    String input;
+    Object input;
 
-    public MapPhase(Mapper mapper, String input) {
+    public MapPhase(Mapper mapper, Object input) {
         this.mapper = mapper;
         this.input = input;
     }

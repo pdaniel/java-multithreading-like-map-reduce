@@ -16,7 +16,7 @@ public interface Worker {
 
     public void setRunning(boolean running);
 
-    public void setInput(String input);
+    public void setInput(Object input);
 
     public void setTaken(boolean taken);
 

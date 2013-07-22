@@ -15,7 +15,7 @@ abstract class BaseWorker extends Thread implements Worker{
     long workerId;
     boolean isRunning;
     boolean taken;
-    String input;
+    Object input;
     List results;
 
 
@@ -57,11 +57,11 @@ abstract class BaseWorker extends Thread implements Worker{
         this.taken = taken;
     }
 
-    public String getInput() {
+    public Object getInput() {
         return input;
     }
 
-    public void setInput(String input) {
+    public void setInput(Object input) {
         this.input = input;
     }
 

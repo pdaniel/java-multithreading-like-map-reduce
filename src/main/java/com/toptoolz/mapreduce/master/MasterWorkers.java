@@ -36,7 +36,7 @@ public class MasterWorkers extends AbstractMaster {
         createWorkers(workersNo);
         for (Object s : input) {
             MapWorker worker = getAvailableMapWorker();
-            worker.setInput((String) s);
+            worker.setInput(s);
             worker.setMapper(mapper);
             worker.setResults(values);
             worker.begin();
