@@ -6,6 +6,7 @@ import com.toptoolz.mapreduce.reduce.MultithreadReducer;
 import com.toptoolz.mapreduce.reduce.Reducer;
 
 import java.util.Collection;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * @author: danielpo
@@ -29,5 +30,9 @@ public class ReduceMultithreadWorker extends AbstractReduceWorker {
 
     @Override
     public void begin() {
+    }
+
+    @Override
+    public void setWorkerIds(BlockingQueue<Long> workerIds) {
     }
 }

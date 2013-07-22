@@ -1,6 +1,7 @@
 package com.toptoolz.mapreduce.worker;
 
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * @author: danielpo
@@ -23,4 +24,6 @@ public interface Worker {
     public boolean isTaken();
 
     public void setResults(List<String> results);
+
+    public void setWorkerIds(BlockingQueue<Long> workerIds);
 }

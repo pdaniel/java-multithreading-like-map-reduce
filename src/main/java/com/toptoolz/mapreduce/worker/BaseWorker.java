@@ -4,6 +4,7 @@ import com.toptoolz.mapreduce.map.Mapper;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * User: Daniel P.
@@ -17,13 +18,16 @@ abstract class BaseWorker extends Thread implements Worker{
     boolean taken;
     Object input;
     List results;
+    protected BlockingQueue<Long> workerIds;
 
     public void markStart(){
+        workerIds.add(getWorkerId());
         setRunning(true);
     }
 
     public void markFinish(){
         setRunning(false);
+        workerIds.remove(getWorkerId());
     }
 
     Integer genWorkerId(){

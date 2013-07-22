@@ -5,6 +5,7 @@ import com.toptoolz.mapreduce.map.Mapper;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * @author: danielpo
@@ -32,6 +33,10 @@ public abstract class AbstractMapWorker extends BaseWorker  implements MapWorker
 
     public void setMapper(Mapper mapper) {
         this.mapper = mapper;
+    }
+
+    public void setWorkerIds(BlockingQueue<Long> workerIds){
+      this.workerIds = workerIds;
     }
 
 

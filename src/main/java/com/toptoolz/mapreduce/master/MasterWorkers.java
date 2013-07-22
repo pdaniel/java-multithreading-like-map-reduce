@@ -10,6 +10,8 @@ import com.toptoolz.mapreduce.worker.MapWorker;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @author: danielpo
@@ -30,16 +32,28 @@ public class MasterWorkers extends AbstractMaster {
         super(reducer, mapper, input, workersNo);
     }
 
+    BlockingQueue<Long> workersIds = new LinkedBlockingQueue<>();
 
     @Override
     public void begin() {
-        createWorkers(workersNo);
+        //createWorkers(workersNo);
+        int i = 0;
         for (Object s : input) {
-            MapWorker worker = getAvailableMapWorker();
+            MapWorker worker = getAvailableMapWorker(workersIds);
             worker.setInput(s);
             worker.setMapper(mapper);
             worker.setResults(values);
+            worker.setWorkerIds(workersIds);
             worker.begin();
+            i++;
+            if(i==workersNo){
+                System.out.println("sleeping");
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+            }
         }
         for (AbstractMapWorker worker : workers) {
             try {

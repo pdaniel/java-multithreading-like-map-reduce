@@ -7,6 +7,7 @@ import com.toptoolz.mapreduce.worker.*;
 
 import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * @author: danielpo
@@ -65,8 +66,8 @@ public abstract class AbstractMaster implements Master {
     }
 
 
-    protected MapWorker getAvailableMapWorker() {
-        return getAvailableMapWorker(0);
+    protected MapWorker getAvailableMapWorker(BlockingQueue<Long> workerIds) {
+        return getAvailableMapWorker(0,workerIds);
     }
 
     /**
@@ -75,7 +76,7 @@ public abstract class AbstractMaster implements Master {
      * @param idx - the worker id
      * @return - an available worker from workers list
      */
-    protected AbstractMapWorker getAvailableMapWorker(int idx) {
+    protected AbstractMapWorker getAvailableMapWorker(int idx,BlockingQueue<Long> workerIds) {
        /* AbstractMapWorker worker;
         int workersSize = workers.size();
         if (workersSize > 0 && idx < workersSize) {
@@ -93,6 +94,9 @@ public abstract class AbstractMaster implements Master {
             throw new MasterException(e);
         }
         return getAvailableMapWorker(0);*/
+        while (workerIds.size()>workersNo){
+            System.out.println("Too many connections");
+        }
         MapThreadWorker worker = new MapThreadWorker(mapper);
         workers.add(worker);
         return worker;
