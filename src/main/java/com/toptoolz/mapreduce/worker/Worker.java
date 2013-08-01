@@ -25,5 +25,4 @@ public interface Worker {
 
     public void setResults(List<String> results);
 
-    public void setWorkerIds(BlockingQueue<Long> workerIds);
 }

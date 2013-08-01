@@ -32,7 +32,5 @@ public class ReduceMultithreadWorker extends AbstractReduceWorker {
     public void begin() {
     }
 
-    @Override
-    public void setWorkerIds(BlockingQueue<Long> workerIds) {
-    }
+
 }

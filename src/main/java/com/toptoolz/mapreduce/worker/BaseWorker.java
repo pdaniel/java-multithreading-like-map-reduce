@@ -18,17 +18,8 @@ abstract class BaseWorker extends Thread implements Worker{
     boolean taken;
     Object input;
     List results;
-    protected BlockingQueue<Long> workerIds;
 
-    public void markStart(){
-        workerIds.add(getWorkerId());
-        setRunning(true);
-    }
 
-    public void markFinish(){
-        setRunning(false);
-        workerIds.remove(getWorkerId());
-    }
 
     Integer genWorkerId(){
         Random random = new Random();

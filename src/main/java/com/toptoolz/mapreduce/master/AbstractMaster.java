@@ -1,12 +1,12 @@
 package com.toptoolz.mapreduce.master;
 
 import com.toptoolz.mapreduce.map.Mapper;
-import com.toptoolz.mapreduce.master.exception.MasterException;
 import com.toptoolz.mapreduce.reduce.Reducer;
 import com.toptoolz.mapreduce.worker.*;
 
 import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 /**
@@ -18,6 +18,7 @@ import java.util.concurrent.BlockingQueue;
 public abstract class AbstractMaster implements Master {
 
     Vector<AbstractMapWorker> workers = new Vector<>();
+    protected ArrayBlockingQueue<Worker> threads;
     Vector<AbstractReduceWorker> reduceWorkers = new Vector<>();
     List input;
     Mapper mapper;
@@ -28,6 +29,7 @@ public abstract class AbstractMaster implements Master {
         this.input = input;
         this.mapper = mapper;
         this.reducer = reducer;
+       // init();
     }
 
     protected AbstractMaster(Reducer reducer, Mapper mapper, List input, int workersNo) {
@@ -35,6 +37,11 @@ public abstract class AbstractMaster implements Master {
         this.mapper = mapper;
         this.input = input;
         this.workersNo = workersNo;
+        //init();
+    }
+
+    private void init() {
+        this.threads = new ArrayBlockingQueue<>(workersNo);
     }
 
     /**
@@ -65,9 +72,9 @@ public abstract class AbstractMaster implements Master {
         }
     }
 
-
+    @Deprecated
     protected MapWorker getAvailableMapWorker(BlockingQueue<Long> workerIds) {
-        return getAvailableMapWorker(0,workerIds);
+        return getAvailableMapWorker(0, workerIds);
     }
 
     /**
@@ -76,7 +83,8 @@ public abstract class AbstractMaster implements Master {
      * @param idx - the worker id
      * @return - an available worker from workers list
      */
-    protected AbstractMapWorker getAvailableMapWorker(int idx,BlockingQueue<Long> workerIds) {
+    @Deprecated
+    protected AbstractMapWorker getAvailableMapWorker(int idx, BlockingQueue<Long> workerIds) {
        /* AbstractMapWorker worker;
         int workersSize = workers.size();
         if (workersSize > 0 && idx < workersSize) {
@@ -94,7 +102,7 @@ public abstract class AbstractMaster implements Master {
             throw new MasterException(e);
         }
         return getAvailableMapWorker(0);*/
-        while (workerIds.size()>workersNo){
+        while (workerIds.size() > workersNo) {
             System.out.println("Too many connections");
         }
         MapThreadWorker worker = new MapThreadWorker(mapper);
