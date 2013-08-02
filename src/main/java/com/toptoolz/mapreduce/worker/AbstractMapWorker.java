@@ -20,6 +20,7 @@ public abstract class AbstractMapWorker extends BaseWorker implements MapWorker 
         this.mapper = mapper;
         this.input = input;
         this.results = results;
+        super.init();
     }
 
     protected AbstractMapWorker(final Mapper mapper, final Object input, final List results, final BlockingQueue<Worker> threads) {
@@ -27,6 +28,7 @@ public abstract class AbstractMapWorker extends BaseWorker implements MapWorker 
         this.input = input;
         this.results = results;
         this.threads = threads;
+        super.init();
     }
 
     protected AbstractMapWorker(Mapper mapper, long workerId) {
@@ -36,7 +38,7 @@ public abstract class AbstractMapWorker extends BaseWorker implements MapWorker 
 
     protected AbstractMapWorker(Mapper mapper) {
         this.mapper = mapper;
-        this.workerId = genWorkerId();
+        super.init();
     }
 
     public Mapper getMapper() {

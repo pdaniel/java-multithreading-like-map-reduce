@@ -33,4 +33,8 @@ public class ReduceMultithreadWorker extends AbstractReduceWorker {
     }
 
 
+    @Override
+    public Object call() throws Exception {
+        return null;
+    }
 }

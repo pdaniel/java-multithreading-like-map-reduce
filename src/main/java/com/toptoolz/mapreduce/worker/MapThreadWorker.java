@@ -31,18 +31,27 @@ public class MapThreadWorker extends AbstractMapWorker {
 
     @Override
     public void run() {
-        addToThreads(this);
-        MapPhase mapPhase = new MapPhase(mapper, input);
-        results.add(mapPhase.map());
-        removeFromThreads(this);
+        process();
     }
 
+    public void process() {
+        System.out.println("Thread start :" + getWorkerId());
+        System.out.println("Processing : " + input);
+        MapPhase mapPhase = new MapPhase(mapper, input);
+        results.add(mapPhase.map());
+    }
 
     @Override
     public void begin() {
         System.out.println("Thread start :" + getWorkerId());
         System.out.println("Processing : " + input);
         start();
+    }
+
+    @Override
+    public Object call() throws Exception {
+        process();
+        return results;
     }
 
    /* public Task getTask() {

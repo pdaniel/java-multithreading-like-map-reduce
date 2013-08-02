@@ -72,43 +72,6 @@ public abstract class AbstractMaster implements Master {
         }
     }
 
-    @Deprecated
-    protected MapWorker getAvailableMapWorker(BlockingQueue<Long> workerIds) {
-        return getAvailableMapWorker(0, workerIds);
-    }
-
-    /**
-     * Returns an instante of available worker based in idx
-     *
-     * @param idx - the worker id
-     * @return - an available worker from workers list
-     */
-    @Deprecated
-    protected AbstractMapWorker getAvailableMapWorker(int idx, BlockingQueue<Long> workerIds) {
-       /* AbstractMapWorker worker;
-        int workersSize = workers.size();
-        if (workersSize > 0 && idx < workersSize) {
-            worker = workers.get(idx);
-            if (!worker.isRunning() && !worker.isTaken()) {
-                worker.setTaken(true);
-                return worker;
-            } else {
-                return getAvailableMapWorker(idx + 1);
-            }
-        }
-        try {
-            Thread.sleep(100000);  //TODO : find a better way
-        } catch (InterruptedException e) {
-            throw new MasterException(e);
-        }
-        return getAvailableMapWorker(0);*/
-        while (workerIds.size() > workersNo) {
-            System.out.println("Too many connections");
-        }
-        MapThreadWorker worker = new MapThreadWorker(mapper);
-        workers.add(worker);
-        return worker;
-    }
 
     public Vector<AbstractMapWorker> getWorkers() {
         return workers;

@@ -67,4 +67,8 @@ abstract class BaseWorker extends Thread implements Worker{
         this.results = results;
     }
 
+    public void init(){
+        this.workerId = genWorkerId();
+    }
+
 }

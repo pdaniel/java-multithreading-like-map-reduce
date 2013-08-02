@@ -56,7 +56,7 @@ public class MapReduceTests extends AbstractBaseTest {
                 return h;
 
             }
-        }).workersNo(100).build();
+        }).workersNo(1).build();
 
         mr.begin();
         Object result = mr.master.reduceResults();
