@@ -42,16 +42,29 @@ public class MasterWorkers extends AbstractMaster {
             MapWorker worker = new MapThreadWorker(mapper, s, values, threads);
             pool.submit(worker);
         }
+       /* try {
+            List<Future<?>> results = threadPool.invokeAll(input);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
 
-        for(Object s: input){
+        /*for(Object s: input){
             try {
-                pool.take().get();
+                if(pool!=null && pool.take()!=null) {
+                    pool.take().get();
+                }
             } catch (InterruptedException | ExecutionException e) {
                 throw new MasterException(e);
             }
-        }
+        }*/
 
         threadPool.shutdown();
+
+        try {
+            boolean finshed = threadPool.awaitTermination(1000, TimeUnit.DAYS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         ReducePhase rp = new ReducePhase(values, reducer);
         reduceResults = rp.reduce();
